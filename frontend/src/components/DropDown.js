@@ -64,7 +64,8 @@ export default function DropDown(props) {
     };
 
   return (
-    <Box sx={{ minWidth: 120 }}>   
+    <Box sx={{ minWidth: 120 }}> 
+    <h3> Edit Contact</h3>  
         <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Contacts</InputLabel>
             <Select

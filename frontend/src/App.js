@@ -74,8 +74,9 @@ function App() {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                height: '190px',
+                height: '250px',
                 marginBottom: '50px'}}>
+        <h1>Add New Contact</h1>
         <TextField 
           id='name'
           value={name}
@@ -97,7 +98,7 @@ function App() {
             >Add Contact</Button>
       </Box>
 
-                { contacts.length !== 0 ?  <DropDown contacts={contacts}/> :'' }
+                { contacts.length !== 0 ? <DropDown contacts={contacts}/> :'' }
 
                 <Button onClick={gerContacts}>Press to refresh</Button>
               
