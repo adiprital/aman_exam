@@ -10,7 +10,7 @@
 1. enter the command "cd backend" from the root folder of the project.
 2. enter the command "npm install" - for installing node_modules.
 3. inside the backend folder (aman_exam/backend), create .env file, and create inside it the following line:
-   MONGO_URL =
+   MONGO_URL = 'mongodb+srv://amantest:pWdKjWR5VcOdFVHi@amancluster.q3x0gl3.mongodb.net/?retryWrites=true&w=majority'
 4. enter the command "npm run start"
 5. server is ready to listen to requests.
 

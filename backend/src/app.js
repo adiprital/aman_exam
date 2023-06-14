@@ -1,9 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-
 const bodyparser = require("body-parser"); 
 
-// const usersController = require('./controllers/users/users.controller');
+const contactsController = require('./controllers/contacts.controller');
 
 const app = express();
 
@@ -16,8 +15,6 @@ app.use(cors({
         methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
 }));
 
-
-
-// app.use('/', usersController);
+app.use('/', contactsController);
 
 module.exports = app;
