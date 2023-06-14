@@ -28,7 +28,37 @@ async function addContact(name, phone) {
     }
 };
 
+async function removeContact(name, phone) {
+    try {
+        await contactsDatabase.findOneAndDelete({name: name, phone: phone});
+    } catch(err) {
+        console.error(`Could not remove contacts ${err}`);
+    }
+};
+
+async function editContact(name, phone, newName, newPhone) {
+    try {
+        let updatedContact = await contactsDatabase.updateOne({
+            name: name, 
+            phone: phone
+        }, {
+            name: newName,
+            phone: newPhone
+        }, {
+            updateOne: true
+        });
+
+        return updatedContact;
+
+    } catch(err) {
+        console.error(`Could not edit contacts ${err}`);
+    }
+};
+
+
 module.exports = {
     getContacts,
-    addContact
+    addContact,
+    removeContact,
+    editContact
 }

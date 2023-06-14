@@ -9,7 +9,7 @@ import DropDown from './components/DropDown';
 function App() {
   const [contacts, setContacts] = useState([]); 
   const [name, setName] = useState(''); 
-  const [phone, setPhone] = useState([]); 
+  const [phone, setPhone] = useState(''); 
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -36,7 +36,32 @@ function App() {
         res = false
     }
     return res;
-};
+  };
+
+  const addContact = async () => {
+    let currentContact = await axios.post('http://localhost:8000/add-contact', {
+        name, phone
+    });
+
+    if (currentContact.data && currentContact.data.success) {
+      let updatedContacts = [...contacts];
+      updatedContacts.push(currentContact.data.contact);
+      setContacts(updatedContacts);
+    }
+    // setTimeout(() => {setSignInResult(undefined)}, 5000); message
+  }
+
+  const gerContacts = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/get-contacts');
+      if (response && response.data) {
+        setContacts(response.data);
+      }
+    }
+    catch(error){
+      console.log('error in fetch contacts', error);
+    }
+  }
 
   return (
     <Box sx={{
@@ -45,14 +70,12 @@ function App() {
       alignItems: 'center',
       justifyContent: 'space-between'
     }}>
-
-      <DropDown contacts={contacts}/>
-
       <Box sx={{ marginTop: '25px', 
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                height: '190px'}}>
+                height: '190px',
+                marginBottom: '50px'}}>
         <TextField 
           id='name'
           value={name}
@@ -60,19 +83,24 @@ function App() {
           label="name" 
           variant="outlined" 
         />
-        <TextField              
-          id='phone'
-          value={phone}
-          onChange={(event) => setPhone(event.target.value)}                  
-          label="phone" 
-          variant="outlined" 
-        />
-        <Button 
-          variant="contained"
-          disabled={checkDisable()}
-        >Add Contact</Button>
+          <TextField              
+            id='phone'
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}                  
+            label="phone" 
+            variant="outlined" 
+          />
+          <Button 
+            variant="contained"
+            disabled={checkDisable()}
+            onClick={addContact}
+            >Add Contact</Button>
       </Box>
 
+                { contacts.length !== 0 ?  <DropDown contacts={contacts}/> :'' }
+
+                <Button onClick={gerContacts}>Press to refresh</Button>
+              
     </Box>
   );
 }
